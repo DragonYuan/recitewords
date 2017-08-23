@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/m1"
+        android:title="清空单词"
+        />
+    <item
+        android:id="@+id/m2"
+        android:title="关于软件"
+        />
+    <item
+        android:id="@+id/m3"
+        android:title="退出软件"
+         />
+</menu>
