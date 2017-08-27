@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.AddActivity"/>
+        <activity android:name=".activitys.TranslateActivity"/>
     </application>
 
 </manifest>

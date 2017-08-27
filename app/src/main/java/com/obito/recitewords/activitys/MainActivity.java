@@ -8,10 +8,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,8 +22,12 @@ import android.widget.Toast;
 import com.obito.recitewords.R;
 import com.obito.recitewords.adapter.ListAdapter;
 import com.obito.recitewords.bmobobject.Words;
+import com.obito.recitewords.callbackinterface.TranlateCallBack;
+import com.obito.recitewords.tools.TranslateTool;
 import com.obito.recitewords.tools.UploadDataTool;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     public ListView listView;
     //无数据时显示的text
     public TextView textView;
+    //在线翻译的布局按钮
+    public LinearLayout online;
     //数据源
     public List<Words> dataList;
     //适配器
@@ -88,13 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("para", para);
                 intent.putExtra("id", id);
                 MainActivity.this.startActivity(intent);
+                MainActivity.this.finish();
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final int p = i;
-                Snackbar.make(view, "确实删除该项？", Snackbar.LENGTH_INDEFINITE).setAction("啊。恩", new View.OnClickListener() {
+                Snackbar.make(view, "确实删除该项？", Snackbar.LENGTH_LONG).setAction("啊。恩", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         tool.deleteData(dataList.get(p));
@@ -106,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,TranslateActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+            }
+        });
     }
 
     private void downloadData() {
@@ -114,10 +131,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void initInstance() {
         tool = new UploadDataTool(this, handler);
+        dataList=new ArrayList<>();
     }
 
     private void initData(Message msg) {
-        dataList = (List<Words>) msg.obj;
+        List<Words> list = (List<Words>) msg.obj;
+        //将dataList以倒序时间顺序排列
+        for (int i = list.size()-1 ; i >= 0; i--) {
+            dataList.add(list.get(i));
+        }
         if (dataList.size() == 0) {
             textView.setVisibility(View.VISIBLE);
         }
@@ -130,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         listView = (ListView) findViewById(R.id.listview);
         textView = (TextView) findViewById(R.id.is_show);
+        online = (LinearLayout) findViewById(R.id.lin_online);
         pb = (ProgressBar) findViewById(R.id.pb);
         pb.setVisibility(View.VISIBLE);
     }
@@ -150,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder adb = new AlertDialog.Builder(this);
                 adb.setTitle("啦啦啦");
                 adb.setMessage("欢迎使用本软件，以下为正确的使用姿势：\n1.点击右下角的圆形按钮来添加一个单词。\n2.长按已经添加的单词可删除。\n3.点击已经添加的单词可重新编辑。\n4.软件需要联网，数据储存在服务器，即使卸载软件，数据也不会丢失。\n5.求给个好评\n6.我的支付宝是......算了，不打这个算盘了，估计也没多少下载，准备自己用来着的。");
-               adb.setNegativeButton("哦。。。",null);
+                adb.setNegativeButton("哦。。。", null);
                 adb.show();
                 break;
             case R.id.m3:

@@ -90,4 +90,10 @@ public class AddActivity extends AppCompatActivity {
         add = (Button) findViewById(R.id.add);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
