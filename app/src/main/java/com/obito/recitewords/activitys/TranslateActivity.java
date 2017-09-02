@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.obito.recitewords.R;
 import com.obito.recitewords.bmobobject.Words;
 import com.obito.recitewords.callbackinterface.TranlateCallBack;
@@ -57,18 +57,24 @@ public class TranslateActivity extends AppCompatActivity {
         traslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pb.setVisibility(View.VISIBLE);
                 String text = query.getText().toString();
-                TranslateTool.translate(text, new TranlateCallBack() {
+                if (text.equals("")) {
+                    Toast.makeText(TranslateActivity.this, "请输入要翻译的单词或者汉字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String format="[[a-zA-z]+\\s]*";
+                boolean isToEN=text.matches(format)?false:true;
+                pb.setVisibility(View.VISIBLE);
+                TranslateTool.translate(text, isToEN,new TranlateCallBack() {
                     @Override
-                    public void onFinish(Words words) {
-                        TranslateActivity.this.words = words;
+                    public void onFinish(Words word) {
+                        TranslateActivity.this.words = word;
                         handler.sendEmptyMessage(0);
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Log.e("Tranlate", e.toString());
+
                     }
                 });
             }
@@ -76,6 +82,16 @@ public class TranslateActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                    //用于判断返回的结果格式是否是字母
+                    String format = "[[a-zA-z]+\\s]+";
+                    //如果翻译结果是字母，则认为用户输入的是中文
+                    if (words.getParaphrase().matches(format)) {
+                        //于是把word对象中的字母和释义替换
+                        String temp = words.getParaphrase();
+                        words.setParaphrase(words.getWords());
+                        words.setWords(temp);
+                    }
                 words.setImei(tool.getImei());
                 tool.uploadData(words);
             }

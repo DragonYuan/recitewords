@@ -22,14 +22,21 @@ public class TranslateTool{
     public static final String id = "58324b291e729cdf";//appKey!!!!
     public static final String key = "JpC0A1Vrcop6o3mh9r8j2pq23edpvxpe";
 
-    //翻译的方法
-    public static void translate(final String word, final TranlateCallBack callBack){
+
+
+    /**
+     * 翻译的方法
+     * @param word 单词
+     * @param isToEn 是否是汉译英
+     * @param callBack 回调接口
+     */
+    public static void translate(final String word, final boolean isToEn, final TranlateCallBack callBack){
         new Thread(){
             @Override
             public void run() {
                 try {
                     //创建url
-                    String url = createUrl(word);
+                    String url = createUrl(word,isToEn);
                     //发送http请求 并获取json数据
                     String json = HttpTool.sendGet(url);
                     //解析json数据
@@ -46,7 +53,7 @@ public class TranslateTool{
     }
 
 
-    private static String createUrl(String word) throws UnsupportedEncodingException {
+    private static String createUrl(String word,boolean isToEn) throws UnsupportedEncodingException {
         //将要翻译的文本转换为utf-8编码
         word = new String(word.getBytes(), "UTF-8");
         //生成随机数
@@ -59,13 +66,24 @@ public class TranslateTool{
         word = URLEncoder.encode(word, "utf-8");
         String ran = URLEncoder.encode(random + "", "utf-8");
         md5 = URLEncoder.encode(md5, "utf-8");
+        String url=null;
         //拼接出URL
-        String url= "http://openapi.youdao.com/api?q=" +
-                word +
-                "&from=auto&to=zh_CHS" +
-                "&appKey=" + id +
-                "&salt=" + random +
-                "&sign=" + md5;
+        if (isToEn) {
+             url= "http://openapi.youdao.com/api?q=" +
+                    word +
+                    "&from=zh_CHS&to=EN" +
+                    "&appKey=" + id +
+                    "&salt=" + random +
+                    "&sign=" + md5;
+        }
+       else{
+            url= "http://openapi.youdao.com/api?q=" +
+                    word +
+                    "&from=EN&to=zh_CHS" +
+                    "&appKey=" + id +
+                    "&salt=" + random +
+                    "&sign=" + md5;
+        }
         return url;
     }
 

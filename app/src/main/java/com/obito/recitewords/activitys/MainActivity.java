@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.m2:
                 AlertDialog.Builder adb = new AlertDialog.Builder(this);
                 adb.setTitle("啦啦啦");
-                adb.setMessage("欢迎使用本软件，以下为正确的使用姿势：\n1.点击右下角的圆形按钮来添加一个单词。\n2.长按已经添加的单词可删除。\n3.点击已经添加的单词可重新编辑。\n4.软件需要联网，数据储存在服务器，即使卸载软件，数据也不会丢失。\n5.求给个好评\n6.我的支付宝是......算了，不打这个算盘了，估计也没多少下载，准备自己用来着的。");
+                adb.setMessage("欢迎使用本软件，以下为正确的使用姿势：\n1.点击右下角的圆形按钮来添加一个单词。\n2.长按已经添加的单词可删除。\n3.点击已经添加的单词可重新编辑。\n4.软件需要联网，数据储存在服务器，即使卸载软件，数据也不会丢失。\n5.求给个好评");
                 adb.setNegativeButton("哦。。。", null);
                 adb.show();
                 break;

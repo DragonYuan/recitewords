@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="请输入要翻译的单词" />
+        android:hint="请输入要翻译的单词或汉字" />
 
     <Button
         android:id="@+id/btn_translate"

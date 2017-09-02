@@ -21,7 +21,7 @@ public class ParseDataTool {
         StringBuilder translation = new StringBuilder();
         JSONArray jsonArray = jsonObject.getJSONArray("translation");
         for (int i = 0; i < jsonArray.length(); i++) {
-            translation.append(jsonArray.get(i) + "\n");
+            translation.append(jsonArray.get(i) + " ");
         }
         words = new Words();
         words.setParaphrase(translation.toString());

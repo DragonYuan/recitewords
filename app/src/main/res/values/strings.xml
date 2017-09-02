@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">记单词</string>
+    <string name="text1">有话直说，说到做到，这就是我的忍道！\n-漩涡鸣人</string>
+    <string name="text2">不经历相同的痛苦，便无法相互理解，即使经历了相同的痛苦，也未必能够真正意义上相互理解，这就是道理。\n-佩恩</string>
+    <string name="text3">希望本是有所谓有，无所谓无的，正如这地上的路-地上本没有路，走的人多了，也便成了路。\n-鲁迅</string>
+    <string name="text4">只有蠢货才会犹豫不决。\n-不祥之刃 卡特琳娜</string>
+    <string name="text5">我宁愿做错，也不愿什么都不做。\n-时间刺客 艾克</string>
+    <string name="text6">既然选择了一条人迹罕至的路，就注定要伴随着孤独和风雨走下去。\n-开发者</string>
+    <string name="text7">大千世界，多得是想不通的事，多得是猜不透的心，多得是看不透的人。不如不想，不如不猜，不如不看，不如寄情山水，不如快意人生，不如，吃茶去。\n-许嵩</string>
+    <string name="text8">忍者要沉着冷静、仔细判断。打破忍者世界规则跟铁律的人，我们都叫他废物。 ...可是，不懂得重视同伴的人，连废物都不如！\n-宇智波带土</string>
+    <string name="text9">绝望之为虚妄,正与希望相同。\n-鲁迅</string>
+    <string name="text10">这个世界已无所谓的希望，希望和放弃没有任何区别，只是一种敷衍的托词罢了。\n-宇智波带土</string>
+    <string name="text11">感受痛楚吧！\n-佩恩</string>
+    <string name="text12">琳， 我要创造一个有你的世界\n-宇智波带土</string>
+
 </resources>
